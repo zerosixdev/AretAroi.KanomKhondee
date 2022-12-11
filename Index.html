@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400&display=swap" rel="stylesheet">
+    <link href="https://ltschool.web.app/css/Bootstrapcolor.css" rel="stylesheet" type="text/css">
+    
+  <style>
+    body {
+      font-family: 'Prompt';
+      font-size: 14px;
+      background: url("https://www.i-pic.info/i/6yqh191586.png");
+			height: 100vh;
+			width: 100%;
+			background-size: cover;
+			background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .form-control:focus {
+      border-color: #6265e4 !important;
+      box-shadow: 0 0 5px rgba(98, 101, 228, 1) !important;
+    }
+  </style>
+</head>
+
+<body>
+   <div class="container">
+    <div class="row">
+      <div class="col-md-8 mx-auto" id="form1">
+        <div class="card">
+          <div class="card-header h5 bg-primary text-white text-center">ฟอร์มบันทึกข้อมูล ร้านขนมคนดี</div>  
+          <div class="card-body">
+            <!-- <h5 class="card-title text-center"><i class="fas fa-thumbs-up"></i> ..ฟอร์มนี้มีประโยชน์มากๆ นะครับ เป็นการรวม input ทุกแบบ สามารถนำไปประยุกต์ต่อยอดได้อีกมากมาย</h5> -->
+            <div class="container">
+              <div class="bg-white">
+                <!-- <div class="row"> -->
+                <div class="col-md-12">
+                  <form id="myForm" onsubmit="submitForm()">
+                    <!-- <p class="h3 mb-4 text-center"><i class="fas fa-chalkboard-teacher"></i> ฟอร์มบันทึกข้อมูล</p> -->
+                    
+                    <!-- -------------------------------ชื่อลูกค้า------------------------------------------ -->
+                    <div class="row mb-2">
+                      <div class="form-group col-md-4">
+                        <label for="first_name"><i class="fas fa-user"></i> ชื่อลูกค้า</label>
+                        <input type="text" class="form-control"  id="data4"  placeholder="ชื่อลูกค้า" required>
+                      </div>
+
+                      <!-- -------------------------------สถานที่จัดส่ง------------------------------------------ -->
+                      <div class="form-group col-md-4">
+                        <label for="inputnick"><i class="fas fa-sign-in-alt"></i> สถานที่จัดส่ง</label>
+                        <select id="data3" class="form-control" required>
+                            <option selected disabled value="">สถานที่จัดส่ง</option>
+                            <option value="ตึก A">ตึก A</option>
+                            <option value="ตึก B">ตึก B</option>
+                            <option value="LINE MAN">LINE MAN</option>
+                            <option value="Thai Kansai">Thai Kansai</option>
+                            <option value="ขายหน้าร้าน">ขายหน้าร้าน</option>
+                            <option value="อื่นๆ">อื่นๆ</option>
+                          </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="dateOfBirth"><i class="fas fa-redo"></i> วันที่รับอาหาร</label>
+                        <input type="date" class="form-control"  id="data11" required>
+                      </div>
+                    </div>
+                    
+
+                    <!-- -------------------------------เมนูอาหาร1------------------------------------------ -->
+                    <div class="row mb-2">
+                      <div class="form-group col-md-4">
+                        <br>
+                        <label for="inputnick">รายการอาหารที่ 1</label>
+                        <select id="data0" class="form-control">
+                            <option value="" selected>เมนูอาหาร</option>
+                            <option value="ข้าวคลุกกะปิ">ข้าวคลุกกะปิ (50)</option>
+                            <option value="ข้าวคลุกกะปิ (L.)">ข้าวคลุกกะปิ (L.79)</option>
+                            <option value="ข้าวคลุกกะปิพิเศษ">ข้าวคลุกกะปิพิเศษ (60)</option>
+                            <option value="ข้าวน้ำพริกปลาทู">ข้าวน้ำพริกปลาทู (50)</option>
+                            <option value="ข้าวน้ำพริกปลาทู (L.)">ข้าวน้ำพริกปลาทู (L.79)</option>
+                            <option value="ข้าวน้ำพริกปลาทูพิเศษ">ข้าวน้ำพริกปลาทูพิเศษ (60)</option>
+                            <option value="ข้าวปลาทอด">ข้าวปลาทอด (50)</option>
+                            <option value="ข้าวปลาทอด (L.)">ข้าวปลาทอด (L.69)</option>
+                            <option value="ข้าวปลาทอดพิเศษ">ข้าวปลาทอดพิเศษ (60)</option>
+                            <option value="ข้าวผัดอเมริกัน">ข้าวผัดอเมริกัน (50)</option>
+                            <option value="ข้าวผัดอเมริกัน (L.)">ข้าวผัดอเมริกัน (L.79)</option>
+                            <option value="ข้าวผัดอเมริกันพิเศษ">ข้าวผัดอเมริกันพิเศษ (60)</option>
+                            <option value="ข้าวผัดไก่กระเทียม">ข้าวผัดไก่กระเทียม</option>
+                            <option value="ข้าวผัดพริกไก่">ข้าวผัดพริกไก่</option>
+                            <option value="ข้าวไข่เจียว 1 ฟอง">ข้าวไข่เจียว 1 ฟอง (30)</option>
+                            <option value="ข้าวไข่เจียว 2 ฟอง">ข้าวไข่เจียว 2 ฟอง (35)</option>
+                            <option value="สปาเก็ตตี้ ซอสมะเขือเทศ">สปาเก็ตตี้ ซอสมะเขือเทศ (50)</option>
+                            <option value="สลัดโรลปูอัด">สลัดโรลปูอัด (50)</option>
+                            <option value="สลัดโรลไส้กรอก">สลัดโรลไส้กรอก (50)</option>
+                            <option value="สลัดโรลไส้กรอก+ปูอัด">สลัดโรลไส้กรอก+ปูอัด (50)</option>
+                            <option value="เกี้ยวหมู">เกี้ยวหมู (30)</option>
+                            <option value="เกี้ยวหมู (L.)">เกี้ยวหมู (L.40)</option>
+                            <option value="เกี้ยวไข่">เกี้ยวไข่ (30)</option>
+                            <option value="เกี้ยวไข่ (L.)">เกี้ยวไข่ (L.40)</option>
+                            <option value="แซนวิช">แซนวิช (30)</option>
+                            <option value="แซนวิชโบราณเล็ก">แซนวิชโบราณเล็ก (25)</option>
+                            <option value="แซนวิชโบราณใหญ่">แซนวิชโบราณใหญ่ (45)</option>
+                            <option value="แซนวิชโบราณใหญ่ (L.)">แซนวิชโบราณใหญ่ (L.60)</option>
+                            <option value="กล้วยอบงา">กล้วยอบงา (35)</option>
+                            <option value="หมูหวาน">หมูหวาน (50)</option>
+                            <option value="หมูหวานพิเศษ">หมูหวานพิเศษ (60)</option>
+                            <option value="เค้กช็อคหน้านิ่ม">เค้กช็อคหน้านิ่ม (25)</option>
+                            <option value="เค้กฝอยทอง">เค้กฝอยทอง (25)</option>
+                            <option value="เค้กส้ม">เค้กส้ม (25)</option>
+                            <option value="เค้กกล้วยหอม">เค้กกล้วยหอม (25)</option>
+                            <option value="เค้กกล้วยหอม (L.)">เค้กกล้วยหอม (L.35)</option>
+                            <option value="ไข่ดาว">ไข่ดาว (10)</option>
+                            <option value="ไตปลาแห้ง">ไตปลาแห้ง (50)</option>
+                            <option value="ข้าวเปล่า 5 บาท">ข้าวเปล่า (5)</option>
+                            <option value="ข้าวเปล่า 10 บาท">ข้าวเปล่า (10)</option>
+                          </select>
+                      </div>
+
+                      <!-- -------------------------------ราคา------------------------------------------ -->
+                      <!-- <div class="row  my-3"> -->
+                      <div class="form-group col-md-4">
+                        <br>
+                        <label for="inputnick">ราคา</label>
+                        <select id="data1" class="form-control">
+                            <option selected disabled value="">ราคา</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                            <option value="60">60</option>
+                            <option value="65">65</option>
+                            <option value="69">69</option>
+                            <option value="70">70</option>
+                            <option value="75">75</option>
+                            <option value="79">79</option>
+                          </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <br>
+                        <label for="inputnick">จำนวน</label>
+                        <select id="data2" class="form-control">
+                            <option value="" selected>ราคา</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                          </select>
+                      </div>
+                    </div>
+
+
+                    <!-- -------------------------------เมนูอาหาร2------------------------------------------ -->
+                    <div class="row mb-2">
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">รายการอาหารที่ 2</label>
+                        <select id="data5" class="form-control">   
+                            <option value="" selected>เมนูอาหาร</option>
+                            <option value="ข้าวคลุกกะปิ">ข้าวคลุกกะปิ (50)</option>
+                            <option value="ข้าวคลุกกะปิ (L.)">ข้าวคลุกกะปิ (L.79)</option>
+                            <option value="ข้าวคลุกกะปิพิเศษ">ข้าวคลุกกะปิพิเศษ (60)</option>
+                            <option value="ข้าวน้ำพริกปลาทู">ข้าวน้ำพริกปลาทู (50)</option>
+                            <option value="ข้าวน้ำพริกปลาทู (L.)">ข้าวน้ำพริกปลาทู (L.79)</option>
+                            <option value="ข้าวน้ำพริกปลาทูพิเศษ">ข้าวน้ำพริกปลาทูพิเศษ (60)</option>
+                            <option value="ข้าวปลาทอด">ข้าวปลาทอด (50)</option>
+                            <option value="ข้าวปลาทอด (L.)">ข้าวปลาทอด (L.69)</option>
+                            <option value="ข้าวปลาทอดพิเศษ">ข้าวปลาทอดพิเศษ (60)</option>
+                            <option value="ข้าวผัดอเมริกัน">ข้าวผัดอเมริกัน (50)</option>
+                            <option value="ข้าวผัดอเมริกัน (L.)">ข้าวผัดอเมริกัน (L.79)</option>
+                            <option value="ข้าวผัดอเมริกันพิเศษ">ข้าวผัดอเมริกันพิเศษ (60)</option>
+                            <option value="ข้าวผัดไก่กระเทียม">ข้าวผัดไก่กระเทียม</option>
+                            <option value="ข้าวผัดพริกไก่">ข้าวผัดพริกไก่</option>
+                            <option value="ข้าวไข่เจียว 1 ฟอง">ข้าวไข่เจียว 1 ฟอง (30)</option>
+                            <option value="ข้าวไข่เจียว 2 ฟอง">ข้าวไข่เจียว 2 ฟอง (35)</option>
+                            <option value="สปาเก็ตตี้ ซอสมะเขือเทศ">สปาเก็ตตี้ ซอสมะเขือเทศ (50)</option>
+                            <option value="สลัดโรลปูอัด">สลัดโรลปูอัด (50)</option>
+                            <option value="สลัดโรลไส้กรอก">สลัดโรลไส้กรอก (50)</option>
+                            <option value="สลัดโรลไส้กรอก+ปูอัด">สลัดโรลไส้กรอก+ปูอัด (50)</option>
+                            <option value="เกี้ยวหมู">เกี้ยวหมู (30)</option>
+                            <option value="เกี้ยวหมู (L.)">เกี้ยวหมู (L.40)</option>
+                            <option value="เกี้ยวไข่">เกี้ยวไข่ (30)</option>
+                            <option value="เกี้ยวไข่ (L.)">เกี้ยวไข่ (L.40)</option>
+                            <option value="แซนวิช">แซนวิช (30)</option>
+                            <option value="แซนวิชโบราณเล็ก">แซนวิชโบราณเล็ก (25)</option>
+                            <option value="แซนวิชโบราณใหญ่">แซนวิชโบราณใหญ่ (45)</option>
+                            <option value="แซนวิชโบราณใหญ่ (L.)">แซนวิชโบราณใหญ่ (L.60)</option>
+                            <option value="กล้วยอบงา">กล้วยอบงา (35)</option>
+                            <option value="หมูหวาน">หมูหวาน (50)</option>
+                            <option value="หมูหวานพิเศษ">หมูหวานพิเศษ (60)</option>
+                            <option value="เค้กช็อคหน้านิ่ม">เค้กช็อคหน้านิ่ม (25)</option>
+                            <option value="เค้กฝอยทอง">เค้กฝอยทอง (25)</option>
+                            <option value="เค้กส้ม">เค้กส้ม (25)</option>
+                            <option value="เค้กกล้วยหอม">เค้กกล้วยหอม (25)</option>
+                            <option value="เค้กกล้วยหอม (L.)">เค้กกล้วยหอม (L.35)</option>
+                            <option value="ไข่ดาว">ไข่ดาว (10)</option>
+                            <option value="ไตปลาแห้ง">ไตปลาแห้ง (50)</option>
+                            <option value="ข้าวเปล่า 5 บาท">ข้าวเปล่า (5)</option>
+                            <option value="ข้าวเปล่า 10 บาท">ข้าวเปล่า (10)</option>
+                          </select>
+                      </div>
+
+                      <!-- -------------------------------ราคา------------------------------------------ -->
+                      <!-- <div class="row  my-3"> -->
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">ราคา</label>
+                        <select id="data6" class="form-control">
+                            <option value="" selected>ราคา</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                            <option value="60">60</option>
+                            <option value="65">65</option>
+                            <option value="69">69</option>
+                            <option value="70">70</option>
+                            <option value="75">75</option>
+                            <option value="79">79</option>
+                          </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">จำนวน</label>
+                        <select id="data7" class="form-control">
+                            <option value="" selected>จำนวน</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                          </select>
+                          </select>
+                      </div>
+                    </div>
+
+
+                    <!-- -------------------------------เมนูอาหาร3------------------------------------------ -->
+                    <div class="row mb-2">
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">รายการอาหารที่ 3</label>
+                        <select id="data8" class="form-control">
+                            <option value="" selected>เมนูอาหาร</option>
+                            <option value="ข้าวคลุกกะปิ">ข้าวคลุกกะปิ (50)</option>
+                            <option value="ข้าวคลุกกะปิ (L.)">ข้าวคลุกกะปิ (L.79)</option>
+                            <option value="ข้าวคลุกกะปิพิเศษ">ข้าวคลุกกะปิพิเศษ (60)</option>
+                            <option value="ข้าวน้ำพริกปลาทู">ข้าวน้ำพริกปลาทู (50)</option>
+                            <option value="ข้าวน้ำพริกปลาทู (L.)">ข้าวน้ำพริกปลาทู (L.79)</option>
+                            <option value="ข้าวน้ำพริกปลาทูพิเศษ">ข้าวน้ำพริกปลาทูพิเศษ (60)</option>
+                            <option value="ข้าวปลาทอด">ข้าวปลาทอด (50)</option>
+                            <option value="ข้าวปลาทอด (L.)">ข้าวปลาทอด (L.69)</option>
+                            <option value="ข้าวปลาทอดพิเศษ">ข้าวปลาทอดพิเศษ (60)</option>
+                            <option value="ข้าวผัดอเมริกัน">ข้าวผัดอเมริกัน (50)</option>
+                            <option value="ข้าวผัดอเมริกัน (L.)">ข้าวผัดอเมริกัน (L.79)</option>
+                            <option value="ข้าวผัดอเมริกันพิเศษ">ข้าวผัดอเมริกันพิเศษ (60)</option>
+                            <option value="ข้าวผัดไก่กระเทียม">ข้าวผัดไก่กระเทียม</option>
+                            <option value="ข้าวผัดพริกไก่">ข้าวผัดพริกไก่</option>
+                            <option value="ข้าวไข่เจียว 1 ฟอง">ข้าวไข่เจียว 1 ฟอง (30)</option>
+                            <option value="ข้าวไข่เจียว 2 ฟอง">ข้าวไข่เจียว 2 ฟอง (35)</option>
+                            <option value="สปาเก็ตตี้ ซอสมะเขือเทศ">สปาเก็ตตี้ ซอสมะเขือเทศ (50)</option>
+                            <option value="สลัดโรลปูอัด">สลัดโรลปูอัด (50)</option>
+                            <option value="สลัดโรลไส้กรอก">สลัดโรลไส้กรอก (50)</option>
+                            <option value="สลัดโรลไส้กรอก+ปูอัด">สลัดโรลไส้กรอก+ปูอัด (50)</option>
+                            <option value="เกี้ยวหมู">เกี้ยวหมู (30)</option>
+                            <option value="เกี้ยวหมู (L.)">เกี้ยวหมู (L.40)</option>
+                            <option value="เกี้ยวไข่">เกี้ยวไข่ (30)</option>
+                            <option value="เกี้ยวไข่ (L.)">เกี้ยวไข่ (L.40)</option>
+                            <option value="แซนวิช">แซนวิช (30)</option>
+                            <option value="แซนวิชโบราณเล็ก">แซนวิชโบราณเล็ก (25)</option>
+                            <option value="แซนวิชโบราณใหญ่">แซนวิชโบราณใหญ่ (45)</option>
+                            <option value="แซนวิชโบราณใหญ่ (L.)">แซนวิชโบราณใหญ่ (L.60)</option>
+                            <option value="กล้วยอบงา">กล้วยอบงา (35)</option>
+                            <option value="หมูหวาน">หมูหวาน (50)</option>
+                            <option value="หมูหวานพิเศษ">หมูหวานพิเศษ (60)</option>
+                            <option value="เค้กช็อคหน้านิ่ม">เค้กช็อคหน้านิ่ม (25)</option>
+                            <option value="เค้กฝอยทอง">เค้กฝอยทอง (25)</option>
+                            <option value="เค้กส้ม">เค้กส้ม (25)</option>
+                            <option value="เค้กกล้วยหอม">เค้กกล้วยหอม (25)</option>
+                            <option value="เค้กกล้วยหอม (L.)">เค้กกล้วยหอม (L.35)</option>
+                            <option value="ไข่ดาว">ไข่ดาว (10)</option>
+                            <option value="ไตปลาแห้ง">ไตปลาแห้ง (50)</option>
+                            <option value="ข้าวเปล่า 5 บาท">ข้าวเปล่า (5)</option>
+                            <option value="ข้าวเปล่า 10 บาท">ข้าวเปล่า (10)</option>
+                          </select>
+                      </div>
+
+                      <!-- -------------------------------ราคา------------------------------------------ -->
+                      <!-- <div class="row  my-3"> -->
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">ราคา</label>
+                        <select id="data9" class="form-control">
+                            <option value="" selected>ราคา</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                            <option value="60">60</option>
+                            <option value="65">65</option>
+                            <option value="69">69</option>
+                            <option value="70">70</option>
+                            <option value="75">75</option>
+                            <option value="79">79</option>
+                          </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">จำนวน</label>
+                        <select id="data10" class="form-control">
+                            <option value="" selected>จำนวน</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                          </select>
+                          </select>
+                      </div>
+                    </div>
+
+
+                    <!-- -------------------------------เมนูอาหาร4------------------------------------------ -->
+                    <div class="row mb-2">
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">รายการอาหารที่ 4</label>
+                        <select id="data12" class="form-control">
+                            <option value="" selected>เมนูอาหาร</option>
+                            <<option value="ข้าวคลุกกะปิ">ข้าวคลุกกะปิ (50)</option>
+                            <option value="ข้าวคลุกกะปิ (L.)">ข้าวคลุกกะปิ (L.79)</option>
+                            <option value="ข้าวคลุกกะปิพิเศษ">ข้าวคลุกกะปิพิเศษ (60)</option>
+                            <option value="ข้าวน้ำพริกปลาทู">ข้าวน้ำพริกปลาทู (50)</option>
+                            <option value="ข้าวน้ำพริกปลาทู (L.)">ข้าวน้ำพริกปลาทู (L.79)</option>
+                            <option value="ข้าวน้ำพริกปลาทูพิเศษ">ข้าวน้ำพริกปลาทูพิเศษ (60)</option>
+                            <option value="ข้าวปลาทอด">ข้าวปลาทอด (50)</option>
+                            <option value="ข้าวปลาทอด (L.)">ข้าวปลาทอด (L.69)</option>
+                            <option value="ข้าวปลาทอดพิเศษ">ข้าวปลาทอดพิเศษ (60)</option>
+                            <option value="ข้าวผัดอเมริกัน">ข้าวผัดอเมริกัน (50)</option>
+                            <option value="ข้าวผัดอเมริกัน (L.)">ข้าวผัดอเมริกัน (L.79)</option>
+                            <option value="ข้าวผัดอเมริกันพิเศษ">ข้าวผัดอเมริกันพิเศษ (60)</option>
+                            <option value="ข้าวผัดไก่กระเทียม">ข้าวผัดไก่กระเทียม</option>
+                            <option value="ข้าวผัดพริกไก่">ข้าวผัดพริกไก่</option>
+                            <option value="ข้าวไข่เจียว 1 ฟอง">ข้าวไข่เจียว 1 ฟอง (30)</option>
+                            <option value="ข้าวไข่เจียว 2 ฟอง">ข้าวไข่เจียว 2 ฟอง (35)</option>
+                            <option value="สปาเก็ตตี้ ซอสมะเขือเทศ">สปาเก็ตตี้ ซอสมะเขือเทศ (50)</option>
+                            <option value="สลัดโรลปูอัด">สลัดโรลปูอัด (50)</option>
+                            <option value="สลัดโรลไส้กรอก">สลัดโรลไส้กรอก (50)</option>
+                            <option value="สลัดโรลไส้กรอก+ปูอัด">สลัดโรลไส้กรอก+ปูอัด (50)</option>
+                            <option value="เกี้ยวหมู">เกี้ยวหมู (30)</option>
+                            <option value="เกี้ยวหมู (L.)">เกี้ยวหมู (L.40)</option>
+                            <option value="เกี้ยวไข่">เกี้ยวไข่ (30)</option>
+                            <option value="เกี้ยวไข่ (L.)">เกี้ยวไข่ (L.40)</option>
+                            <option value="แซนวิช">แซนวิช (30)</option>
+                            <option value="แซนวิชโบราณเล็ก">แซนวิชโบราณเล็ก (25)</option>
+                            <option value="แซนวิชโบราณใหญ่">แซนวิชโบราณใหญ่ (45)</option>
+                            <option value="แซนวิชโบราณใหญ่ (L.)">แซนวิชโบราณใหญ่ (L.60)</option>
+                            <option value="กล้วยอบงา">กล้วยอบงา (35)</option>
+                            <option value="หมูหวาน">หมูหวาน (50)</option>
+                            <option value="หมูหวานพิเศษ">หมูหวานพิเศษ (60)</option>
+                            <option value="เค้กช็อคหน้านิ่ม">เค้กช็อคหน้านิ่ม (25)</option>
+                            <option value="เค้กฝอยทอง">เค้กฝอยทอง (25)</option>
+                            <option value="เค้กส้ม">เค้กส้ม (25)</option>
+                            <option value="เค้กกล้วยหอม">เค้กกล้วยหอม (25)</option>
+                            <option value="เค้กกล้วยหอม (L.)">เค้กกล้วยหอม (L.35)</option>
+                            <option value="ไข่ดาว">ไข่ดาว (10)</option>
+                            <option value="ไตปลาแห้ง">ไตปลาแห้ง (50)</option>
+                            <option value="ข้าวเปล่า 5 บาท">ข้าวเปล่า (5)</option>
+                            <option value="ข้าวเปล่า 10 บาท">ข้าวเปล่า (10)</option>
+                          </select>
+                      </div>
+
+                      <!-- -------------------------------ราคา------------------------------------------ -->
+                      <!-- <div class="row  my-3"> -->
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">ราคา</label>
+                        <select id="data13" class="form-control">
+                            <option value="" selected>ราคา</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                            <option value="60">60</option>
+                            <option value="65">65</option>
+                            <option value="69">69</option>
+                            <option value="70">70</option>
+                            <option value="75">75</option>
+                            <option value="79">79</option>
+                          </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputnick">จำนวน</label>
+                        <select id="data14" class="form-control">
+                            <option value="" selected>จำนวน</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                          </select>
+                          </select>
+                      </div>
+                    </div>
+
+
+                    <!-- -------------------------------รายการอาหารอื่น ๆ------------------------------------------ -->
+                    <div class="row mb-2">
+                      <div class="form-group col-md-4">
+                        <label for="first_name"><i></i> รายการอาหารอื่น ๆ</label>
+                        <input type="text" class="form-control"  id="data16"  placeholder="โปรดระบุ">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="first_name"><i></i> ราคา</label>
+                        <input type="text" class="form-control"  id="data17"  placeholder="โปรดระบุ">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="first_name"><i></i> จำนวน</label>
+                        <input type="text" class="form-control"  id="data18"  placeholder="โปรดระบุ">
+                      </div>
+                    </div>
+
+
+                    <!-- -------------------------------โน๊ต+อัปโหลดไฟล์-------------------------------------- -->
+                    <div class="row mb-2">
+                      <div class="form-group">
+                        <br>
+                        <label for="address"><i class="fas fa-address-card"></i> โน๊ต</label>
+                        <textarea class="form-control" rows="1" id="data15" placeholder="โน๊ต"></textarea>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="formFile" class="form-label"><i class="fas fa-upload"></i> อัปโหลดไฟล์</label>
+                        <input class="form-control" type="file" name="uploadfile" id="file">
+                      </div>
+                    </div>
+
+                    <!-- -------------------------------บันทึกข้อมูล------------------------------------------ -->
+                     <div class="form-group text-center mx-auto">
+                      <button type="submit" class="btn btn-success" id="btn1"><i class="fas fa-sign-in-alt"></i> บันทึกคำสั่งซื้อ</button>
+                      <button class="btn btn-primary" id="btn2" type="button" disabled style="display : none">
+                        <span class="spinner-grow spinner-grow-sm" role="status" ></span>
+                        กำลังดำเนินการ...
+                      </button>
+                      <button type="botton" class="btn btn-warning" onclick="godatatable()"><i class="fas fa-download"></i> ตรวจสอบประวัติการขาย</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" id="form2">
+  <?!= include('DataTable'); ?>
+ 
+</div>
+
+  <!-- -------------------------------JAVASCRIPT------------------------------------------ -->
+  <script>
+     $(window).on('load',function(){
+    $('#form2').hide()
+  })
+    var fileUploader = document.getElementById("file");
+      function submitForm(obj) { 
+        event.preventDefault();
+        $('#btn1').hide()
+        $('#btn2').show()
+
+        var obj = {}
+        obj.data0 = $('#data0').val()
+        obj.data1 = $('#data1').val()
+        obj.data2 = $('#data2').val()
+        obj.data3 = $('#data3').val()
+        obj.data4 = $('#data4').val()
+        obj.data5 = $('#data5').val()
+        obj.data6 = $('#data6').val()
+        obj.data7 = $('#data7').val()
+        obj.data8 = $('#data8').val()
+        obj.data9 = $('#data9').val()
+        obj.data10 = $('#data10').val()
+        obj.data11 = $('#data11').val()
+        obj.data12 = $('#data12').val()
+        obj.data13 = $('#data13').val()
+        obj.data14 = $('#data14').val()
+        obj.data15 = $('#data15').val()
+        obj.data16 = $('#data16').val()
+        obj.data17 = $('#data17').val()
+        obj.data18 = $('#data18').val()
+
+        //จะอัปโหลดไฟล์ หรือ ไม่อัปโหลดไฟล์ก็ได้
+        var file = fileUploader.files[0]; 
+        if(file != undefined){
+        var reader = new FileReader(); //อ่านไฟล์เพื่อเตรียมแปลงข้อมูล
+        reader.readAsDataURL(file) //แปลงไฟล์เป็นแบบ Base64
+        reader.onload = function() {         
+        obj.imagedata = reader.result.split(',')[1];  //ดึงข้อมูลไฟล์เฉพาะส่วนที่เป็น Base64
+        obj.filename = file.name
+        obj.filetype = file.type
+        savedata(obj)
+          }}
+          else{savedata(obj)
+        }
+    }
+
+
+    // เมื่อบันทึกไฟล์สำเร็จ
+    function savedata(obj){
+        google.script.run.withSuccessHandler(function (success) {
+          document.getElementById("myForm").reset()
+          $('#btn1').show()
+          $('#btn2').hide()
+          $('#form1').hide()
+          $('#form2').show()
+          $.LoadingOverlay("show", {image:"",fontawesome:"fa fa-cog fa-spin fa-xs"}); 
+           google.script.run.withSuccessHandler(showTable).getData();
+            })
+            .saveData(obj);
+    }
+
+    // จัดการตัวเลือกแบบ checkbox ให้เลือกกี่ช่องก็ได้
+    $(function(){
+    var checkboxes = $(':checkbox[required]');
+    checkboxes.change(function(){
+      if(checkboxes.is(':checked')) {
+          checkboxes.removeAttr('required');
+        }
+        else {
+          checkboxes.attr('required', 'required');
+        }
+    });
+});
+
+ function success(){
+  $('#form1').hide()
+  $([document.documentElement, document.body]).animate({
+    scrollTop: $('#form2').offset().top
+  },500)
+  $('#form2').show()
+  }
+
+function goback(){
+  //$.LoadingOverlay("show", {image:"",fontawesome:"fa fa-cog fa-spin fa-xs"}); 
+  $('#form1').show()
+  $('#form2').hide()
+  $.LoadingOverlay("hide");  
+}
+
+function godatatable(){
+  //$.LoadingOverlay("show", {image:"",fontawesome:"fa fa-cog fa-spin fa-xs"}); 
+  $('#form2').show()
+  $('#form1').hide()
+  $.LoadingOverlay("hide");  
+  google.script.run.withSuccessHandler(showTable).getData();
+
+}
+
+function close(){
+  $('#form2').close()
+  $('#form1').close()
+}
+
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+</body>
+
+</html>
