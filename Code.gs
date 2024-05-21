@@ -1,12 +1,13 @@
 function doGet(e) {
   return HtmlService.createTemplateFromFile('Index').evaluate()
-      .setTitle("KANOM KHONDEE V.3")
+      .setFaviconUrl("https://i.postimg.cc/xjZLsnky/healthy-food.png")
+      .setTitle("เอร็ด อร่อย.ย")
       .addMetaTag('viewport','width=device-width , initial-scale=1')
       .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
 }
 
 function saveData(obj) {
-  var folder = DriveApp.getFolderById("1Kq6i-xqL4ThrQvsU145akPDRtHCtMJt2");
+  var folder = DriveApp.getFolderById("{{Token Folder Google Drive}}");
   var file = ''
   if (obj.imagedata) {
     var datafile = Utilities.base64Decode(obj.imagedata)
@@ -46,4 +47,133 @@ function getData() {
   var values = range.getDisplayValues()
   Logger.log(values)
   return values
+}
+
+
+// - ข้าวคลุกกะปิพิเศษ X1 รวม 70
+// - เกี้ยวไข่ราคา X1รวม 30
+//Line Notify Update. 20May2024
+
+function test (obj) {
+  let num1 = parseInt((obj.data1*obj.data2));         //ราคาเมนูที่ 1
+  let num2 = parseInt((obj.data7*obj.data6));         //ราคาเมนูที่ 2   
+  let num3 = parseInt((obj.data9*obj.data10));        //ราคาเมนูที่ 3
+  let num4 = parseInt((obj.data13*obj.data14));       //ราคาเมนูที่ 4
+  let num5 = parseInt((obj.data17*obj.data18));       //ราคาเมนูที่ 5
+  
+
+  //ไม่มี 1 - 4 มีเฉพราะ 5 ( Mannual )
+  if( obj.data0 === "" && obj.data5 === "" && obj.data8 === "" && obj.data12 === "" ) {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+
+    "\nรวม " + (num5) + " บาท"
+    )
+  }
+
+  //มีเมนู 1 และไม่มี 5
+  else if( obj.data5 === "" && obj.data8 === "" && obj.data12 === "" && obj.data16 === "") {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+
+    "\nรวม " + (num1) + " บาท"
+    )
+  }
+
+  //มีเมนู 1 และมี 5
+  else if( obj.data5 === "" && obj.data8 === "" && obj.data12 === "" ) {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+
+    "\nรวม " + (num1+num5) + " บาท"
+    )
+  }
+
+  //มีเมนู 1, 2 และไม่มี 5
+  else if( obj.data8 === "" && obj.data12 === "" && obj.data16 === "") {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
+
+    "\nรวม " + (num1+num2) + " บาท"
+    )
+  }
+
+
+  //มีเมนู 1, 2 และมี 5
+  else if( obj.data8 === "" && obj.data12 === "" ) {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
+    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+
+    "\nรวม " + (num1+num2+num5) + " บาท"
+    )
+  }
+
+  //มีเมนู 1, 2, 3 และไม่มี 5
+  else if( obj.data12 === "" && obj.data16 === "") {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
+    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
+
+    "\nรวม " + (num1+num2+num3) + " บาท"
+    )
+  }
+
+  //มีเมนู 1, 2, 3 และมี 5
+  else if( obj.data12 === "" ) {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
+    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
+    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+
+    "\nรวม " + (num1+num2+num3+num5) + " บาท"
+    )
+  }
+
+  //มีเมนู 1, 2, 3,4 และไม่มี 5
+  else if( obj.data16 === "") {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
+    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
+    "- " + obj.data12 + " X" + obj.data14 + " รวม " + (obj.data13*obj.data14) + " บาท\n" +          //เมนู 4
+
+    "\nรวม " + (num1+num2+num3+num4) + " บาท"
+    )
+  }
+
+  //มีเมนู 1, 2, 3, 4 และมี 5
+  else {
+    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\n\n\nรายการอาหาร\n" + 
+    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
+    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
+    "- " + obj.data12 + " X" + obj.data14 + " รวม " + (obj.data13*obj.data14) + " บาท\n" +          //เมนู 4
+    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+
+    "\nรวม " + ( num1 + num2 + num3 + num4 + num5 ) + " บาท"
+    )
+  }
+}
+
+
+
+function sendLineNotify(message) {
+  var token = "{{Token Line Notify}}"; // Replace with your LINE Notify token
+  var options = {
+      "method": "post",
+      "payload": {
+          "message": message
+      },
+      "headers": {
+        "Authorization": "Bearer " + token
+      }
+    };
+    var response = UrlFetchApp.fetch("https://notify-api.line.me/api/notify", options);
+    Logger.log(response.getContentText());
 }
