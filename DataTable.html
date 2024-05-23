@@ -36,20 +36,21 @@
       <div class="col-12 col-md-12">
         <nav class="navbar navbar-expand-lg navbar-light bd-blue-500 my-3">
           <div class="container-fluid">
-            <a class="navbar-brand  text-white"><i class=""></i>รายการขายร้านเอร็ด อร่อย.ย ( Aret Aroi ) </a>
+            <a class="navbar-brand text-white"><i class=""></i>รายการบันทึกการขายร้านเอร็ด อร่อย.ย ( Aret Aroi )</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+              <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                  <button type="botton" class="btn btn-warning" onclick="goback()" id="goback"><i class="fas fa-redo"></i> กลับหน้าแรก</button>
-                  <button type="botton" class="btn btn-warning" onclick=window.print() id="goback"><i class="fas fa-download"></i> พิมพ์หน้านี้</button>
+                  <button type="button" class="btn btn-warning" onclick="goback()" id="goback"><i class="fas fa-redo"></i> กลับหน้าแรก</button>
+                  <button type="button" class="btn btn-warning" onclick=window.print() id="goback"><i class="fas fa-download"></i> พิมพ์หน้านี้</button>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
+
         <center>
           <span id="resp-spinner5" class="spinner-grow spinner-grow-sm text-danger d-none" role="status" aria-hidden="true"></span>
           <span id="resp-spinner6" class="spinner-grow spinner-grow-sm text-warning d-none" role="status" aria-hidden="true"></span>
@@ -58,6 +59,7 @@
           <span id="resp-spinner9" class="spinner-grow spinner-grow-sm text-primary d-none" role="status" aria-hidden="true"></span>
           <span id="resp-spinner10" class="spinner-grow spinner-grow-sm text-dark d-none" role="status" aria-hidden="true"></span>
         </center>
+        <div style="height: 15px;"></div>
         <table id="data-table" class="table dt-responsive nowrap" style="width:100%">
           <thead class="bd-blue-500"></thead>
         </table>
@@ -83,7 +85,7 @@
       document.getElementById('resp-spinner9').classList.add("d-none");
       document.getElementById('resp-spinner10').classList.add("d-none");  
       $('#data-table').DataTable({
-      data: dataArray.slice(1),
+      data: dataArray.slice(2),
       columns: [
       { title: "วันเวลาที่บันทึก" },
       { title: "วันที่รับอาหาร" }, 
@@ -93,14 +95,14 @@
       //{ title: "โน๊ต" },
       
       {
-        title: "",
+        title: "โน๊ตเพิ่มเติม",
         render: function (data, type, row, meta) {   
           if (data !== "") {
-            data = "";
+            data = data;
 
           }
           else {
-            data = "";
+            data = "-";
           }
           return data;
           },
@@ -126,8 +128,8 @@
       "ordering": true,
       destroy:true,   
       lengthMenu: [
-          [14, 25, 50, 100, -1 ],
-          ['14', '25', '50','100', 'ทั้งหมด' ]
+          [12, 25, 50, 100, -1 ],
+          ['12', '25', '50','100', 'ทั้งหมด' ]
       ],
 
       // การจัดเรียงลำดับของข้อมูลในคอลัมภ์ asc = น้อยไปหามาก desc = มากไปหาน้อย
