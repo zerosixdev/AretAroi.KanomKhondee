@@ -1,12 +1,14 @@
 function countTypesAndSumSalesForToday() {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var sheetName = "MASTER V.3"; // Replace with the name of your sheet
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
   var dataRange = sheet.getDataRange();
   var data = dataRange.getValues();
   
   // Get today's date
   var today = new Date();
   var todayString = Utilities.formatDate(today, Session.getScriptTimeZone(), "yyyy-MM-dd");
-
+  
+  
   var totalSales = 0;
   var typeCounts = {};
 
@@ -56,7 +58,6 @@ function countTypesAndSumSalesForToday() {
   
   message += "\nยอดรวมทั้งหมด " + totalSales + " บาท" 
   Logger.log(message);
-  //SpreadsheetApp.getUi().alert(message);
   
   // Send message to LINE Notify
   sendLineNotify(message);
