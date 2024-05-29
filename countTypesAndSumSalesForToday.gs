@@ -8,7 +8,6 @@ function countTypesAndSumSalesForToday() {
   var today = new Date();
   var todayString = Utilities.formatDate(today, Session.getScriptTimeZone(), "yyyy-MM-dd");
   
-  
   var totalSales = 0;
   var typeCounts = {};
 
@@ -50,13 +49,26 @@ function countTypesAndSumSalesForToday() {
     }
   }
 
+  // Sort the typeCounts by counts in ascending order, then alphabetically
+  var sortedTypes = Object.keys(typeCounts).map(function(type) {
+    return [type, typeCounts[type]];
+  });
+
+  sortedTypes.sort(function(a, b) {
+    if (a[1] !== b[1]) {
+      return a[1] - b[1]; // Sort by count in ascending order
+    } else {
+      return a[0].localeCompare(b[0]); // If counts are equal, sort alphabetically by type name
+    }
+  });
+
   // Create a summary message
   var message = todayString + "\nTotal Sales for Aret Aroi Store\n";
-  for (var type in typeCounts) {
-    message += "- " + type + " X" + typeCounts[type] + "\n";
+  for (var i = 0; i < sortedTypes.length; i++) {
+    message += "- " + sortedTypes[i][0] + " X" + sortedTypes[i][1] + "\n";
   }
   
-  message += "\nยอดรวมทั้งหมด " + totalSales + " บาท" 
+  message += "\nยอดรวมทั้งหมด " + totalSales + " บาท";
   Logger.log(message);
   
   // Send message to LINE Notify
