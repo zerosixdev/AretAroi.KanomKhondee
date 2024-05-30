@@ -27,6 +27,13 @@
       font-size: 14px;
     }
 
+    .white-text {
+      color: white;
+    }
+    .blue-text {
+      color: #0e6efd;
+    }
+
   </style>
 </head>
 
@@ -34,7 +41,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-12">
-        <nav class="navbar navbar-expand-lg navbar-light bd-blue-500 my-3">
+        <nav class="navbar navbar-expand-lg navbar-light bd-blue-500 my-0.9">
           <div class="container-fluid">
             <a class="navbar-brand text-white"><i class=""></i>รายการบันทึกการขายร้านเอร็ด อร่อย.ย ( Aret Aroi )</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,10 +94,10 @@
       $('#data-table').DataTable({
       data: dataArray.slice(2),
       columns: [
-      { title: "วันเวลาที่บันทึก" },
+      { "title": '<span class="blue-text">____</span><span class="white-text">วันเวลาที่บันทึก</span><span class="blue-text">____</span>' },
       { title: "วันที่รับอาหาร" }, 
-      { title: "ข้อมูลลูกค้า" }, 
-      { title: "รายการอาหาร______________เอร็ด อร่อย.ย ( Aret Aroi )______________" },
+      { "title": '<span class="blue-text">______</span><span class="white-text">ข้อมูลลูกค้า</span><span class="blue-text">______</span>' },
+      { "title": '<span class="blue-text">_________________</span><span class="white-text">รายการอาหารเอร็ด อร่อย.ย ( Aret Aroi )</span><span class="blue-text">_________________</span>' },
       { title: "ยอดรวม" },
       //{ title: "โน๊ต" },
       
@@ -128,8 +135,8 @@
       "ordering": true,
       destroy:true,   
       lengthMenu: [
-          [12, 25, 50, 100, -1 ],
-          ['12', '25', '50','100', 'ทั้งหมด' ]
+          [15, 25, 50, 100, -1 ],
+          ['15', '25', '50','100', 'ทั้งหมด' ]
       ],
 
       // การจัดเรียงลำดับของข้อมูลในคอลัมภ์ asc = น้อยไปหามาก desc = มากไปหาน้อย
@@ -169,12 +176,12 @@
    
   }
   </script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
