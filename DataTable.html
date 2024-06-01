@@ -94,10 +94,10 @@
       $('#data-table').DataTable({
       data: dataArray.slice(2),
       columns: [
-      { "title": '<span class="blue-text">____</span><span class="white-text">วันเวลาที่บันทึก</span><span class="blue-text">____</span>' },
+      { "title": '<span class="blue-text">___</span><span class="white-text">วันเวลาที่บันทึก</span><span class="blue-text">___</span>' },
       { title: "วันที่รับอาหาร" }, 
       { "title": '<span class="blue-text">______</span><span class="white-text">ข้อมูลลูกค้า</span><span class="blue-text">______</span>' },
-      { "title": '<span class="blue-text">_________________</span><span class="white-text">รายการอาหารเอร็ด อร่อย.ย ( Aret Aroi )</span><span class="blue-text">_________________</span>' },
+      { "title": '<span class="blue-text">________________</span><span class="white-text">รายการอาหารเอร็ด อร่อย.ย ( Aret Aroi )</span><span class="blue-text">________________</span>' },
       { title: "ยอดรวม" },
       //{ title: "โน๊ต" },
       
@@ -135,8 +135,8 @@
       "ordering": true,
       destroy:true,   
       lengthMenu: [
-          [15, 25, 50, 100, -1 ],
-          ['15', '25', '50','100', 'ทั้งหมด' ]
+          [14, 25, 50, 100, -1 ],
+          ['14', '25', '50','100', 'ทั้งหมด' ]
       ],
 
       // การจัดเรียงลำดับของข้อมูลในคอลัมภ์ asc = น้อยไปหามาก desc = มากไปหาน้อย
@@ -152,6 +152,14 @@
             "targets": 0
           },
       ],
+      //Version 1 Page = 14 Test in Lenovo
+      "sScrollY": "660px",
+
+      // Version 2 Page = 15 Test in MAC
+      // "sScrollY": "700px",
+      "bScrollCollapse": true,
+      "bPaginate": true,
+      "bJQueryUI": true,
 
       language: {
       sProcessing: "กำลังดำเนินการ...",
