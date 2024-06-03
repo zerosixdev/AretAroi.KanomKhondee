@@ -8,7 +8,7 @@ function doGet(e) {
 
 //let file = '';
 function saveData(obj) {
-  var folder = DriveApp.getFolderById("FolderById");
+  var folder = DriveApp.getFolderById("getFolderById");
   var file = ''
   if (obj.imagedata) {
     var datafile = Utilities.base64Decode(obj.imagedata)
@@ -83,14 +83,7 @@ function test (obj) {
 
   //ไม่มี 1 - 4 มีเฉพราะ 5 ( Mannual )
   if( obj.data0 === "" && obj.data5 === "" && obj.data8 === "" && obj.data12 === "" ) {
-    // sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    // "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
-
-    // "\nรวม " + (num5) + " บาท\n\nSilp : " + shortUrl
-    // )
-
-
-     var flexMessage = {
+    var flexMessage = {
     "type": "flex",
     "altText": "Order Details",
     "contents": {
@@ -101,7 +94,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -167,26 +160,11 @@ function test (obj) {
             "margin": "md"
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
             "text": "รวม " + num5 + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -209,7 +187,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -275,26 +253,11 @@ function test (obj) {
             "margin": "md"
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
             "text": "รวม " + num1 + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -317,7 +280,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -409,26 +372,11 @@ function test (obj) {
             ]
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
-            "text": "รวม " + (num1+ num5) + " บาท",
+            "text": "รวม " + ( num1 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -451,7 +399,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -543,26 +491,11 @@ function test (obj) {
             ]
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
-            "text": "รวม " + (num1+ num2) + " บาท",
+            "text": "รวม " + ( num1 + num2 ) + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -585,7 +518,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -697,26 +630,11 @@ function test (obj) {
             ]
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
-            "text": "รวม " + (num1+ num2+num5) + " บาท",
+            "text": "รวม " + ( num1 + num2 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -739,7 +657,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -851,26 +769,11 @@ function test (obj) {
             ]
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
-            "text": "รวม " + (num1+ num2+num3) + " บาท",
+            "text": "รวม " + ( num1 + num2 + num3 ) + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -893,7 +796,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -1025,26 +928,11 @@ function test (obj) {
             ]
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
-            "text": "รวม " + (num1+ num2+num3+num5) + " บาท",
+            "text": "รวม " + ( num1 + num2 + num3 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -1067,7 +955,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -1199,26 +1087,11 @@ function test (obj) {
             ]
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
-            "text": "รวม " + (num1+ num2+num3+num4) + " บาท",
+            "text": "รวม " + ( num1 + num2 + num3 + num4 ) + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -1241,7 +1114,7 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Order Details",
+            "text": "Ref OrderID : " + generateRandomString(),
             "weight": "bold",
             "size": "xl"
           }
@@ -1393,26 +1266,11 @@ function test (obj) {
             ]
           },
           {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
             "type": "text",
-            "text": "รวม " + (num1+ num2+num3+num4+num5) + " บาท",
+            "text": "รวม " + ( num1 + num2 + num3 + num4 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "md",
-            "margin": "md"
-          },
-          {
-            "type": "separator",
-            "margin": "md"
-          },
-          {
-            "type": "text",
-            "text": "Silp: " + shortUrl,
-            "size": "md",
-            "wrap": true,
-            "margin": "md"
+            "size": "17px",
+            "margin": "xxl"
           }
         ]
       }
@@ -1427,9 +1285,9 @@ function test (obj) {
 
 
 function sendLineOAFlexMessage(flexMessage) {
-  var channelAccessToken = "Replace with your LINE OA Channel Access Token";   // Replace with your LINE OA Channel Access Token
+  var channelAccessToken = "Replace with your LINE OA Channel Access Token"; // Replace with your LINE OA Channel Access Token
   var url = "https://api.line.me/v2/bot/message/push";
-  var userId = "Replace with the user ID or group ID to send the message to";   // Replace with the user ID or group ID to send the message to
+  var userId = "Replace with the user ID or group ID to send the message to"; // Replace with the user ID or group ID to send the message to
 
   var payload = JSON.stringify({
     "to": userId,
@@ -1446,11 +1304,22 @@ function sendLineOAFlexMessage(flexMessage) {
   };
 
   UrlFetchApp.fetch(url, options);
+}
+
+
+function generateRandomString() {
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var result = '';
+  for (var i = 0; i < 5; i++) {
+    var randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
   }
+  return result;
+}
 
 
 // function sendLineNotify(message) {
-//   var token = "Replace with your LINE Notify token";     // Replace with your LINE Notify token
+//   var token = "Replace with your LINE Notify token"; // Replace with your LINE Notify token
 //   var options = {
 //       "method": "post",
 //       "payload": {
