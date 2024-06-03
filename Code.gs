@@ -8,7 +8,7 @@ function doGet(e) {
 
 //let file = '';
 function saveData(obj) {
-  var folder = DriveApp.getFolderById("{Key Folder Google Drive}");
+  var folder = DriveApp.getFolderById("FolderById");
   var file = ''
   if (obj.imagedata) {
     var datafile = Utilities.base64Decode(obj.imagedata)
@@ -47,13 +47,13 @@ function getData() {
   var sheet = ss.getSheets()[0]
   var range = sheet.getDataRange()
   var values = range.getDisplayValues()
-  Logger.log(values)
+  //Logger.log(values)
   return values
 }
 
 
 // - ข้าวคลุกกะปิพิเศษ X1 รวม 70
-// - เกี้ยวไข่ราคา X1 รวม 30
+// - เกี้ยวไข่ราคา X1รวม 30
 //Line Notify Update. 20May2024
 
 function test (obj) {
@@ -63,12 +63,12 @@ function test (obj) {
   let num4 = parseInt((obj.data13*obj.data14));       //ราคาเมนูที่ 4
   let num5 = parseInt((obj.data17*obj.data18));       //ราคาเมนูที่ 5
 
-//Update. 22May2024
+
   //Create Link shortUrl
   var shortUrl = "n/a";
   if (obj.imagedata) {
-    var folder = DriveApp.getFolderById("{Key Folder Google Drive}");
-    var bitlyToken = "{BitlyToken}";
+    var folder = DriveApp.getFolderById("getFolderById");
+    var bitlyToken = "{{bitlyToken}}";
     var datafile = Utilities.base64Decode(obj.imagedata)
     var blob = Utilities.newBlob(datafile, obj.filetype, obj.filename);
     var url_slip_for_line = folder.createFile(blob).getUrl()
@@ -83,119 +83,1386 @@ function test (obj) {
 
   //ไม่มี 1 - 4 มีเฉพราะ 5 ( Mannual )
   if( obj.data0 === "" && obj.data5 === "" && obj.data8 === "" && obj.data12 === "" ) {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+    // sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
+    // "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
 
-    "\nรวม " + (num5) + " บาท\n\nSilp : " + shortUrl
-    )
+    // "\nรวม " + (num5) + " บาท\n\nSilp : " + shortUrl
+    // )
+
+
+     var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "- " + obj.data16 + " X" + obj.data18,
+                "size": "md",
+                "flex": 0,
+                "wrap": true
+              },
+              {
+                "type": "text",
+                "text": "รวม " + num5 + " บาท",
+                "size": "md",
+                "align": "end"
+              }
+            ],
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + num5 + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
+
+  sendLineOAFlexMessage(flexMessage);
   }
 
   //มีเมนู 1 และไม่มี 5
   else if( obj.data5 === "" && obj.data8 === "" && obj.data12 === "" && obj.data16 === "") {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "- " + obj.data0 + " X" + obj.data2,
+                "size": "md",
+                "flex": 0,
+                "wrap": true
+              },
+              {
+                "type": "text",
+                "text": "รวม " + num1 + " บาท",
+                "size": "md",
+                "align": "end"
+              }
+            ],
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + num1 + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + (num1) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
 
   //มีเมนู 1 และมี 5
   else if( obj.data5 === "" && obj.data8 === "" && obj.data12 === "" ) {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
-    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data0 + " X" + obj.data2,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num1 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data16 + " X" + obj.data18,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num5 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + (num1+ num5) + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + (num1+num5) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
 
   //มีเมนู 1, 2 และไม่มี 5
   else if( obj.data8 === "" && obj.data12 === "" && obj.data16 === "") {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
-    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data0 + " X" + obj.data2,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num1 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data5 + " X" + obj.data7,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num2 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + (num1+ num2) + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + (num1+num2) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
-
 
   //มีเมนู 1, 2 และมี 5
   else if( obj.data8 === "" && obj.data12 === "" ) {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
-    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
-    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data0 + " X" + obj.data2,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num1 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data5 + " X" + obj.data7,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num2 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data16 + " X" + obj.data18,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num5 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + (num1+ num2+num5) + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + (num1+num2+num5) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
 
   //มีเมนู 1, 2, 3 และไม่มี 5
   else if( obj.data12 === "" && obj.data16 === "") {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
-    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
-    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data0 + " X" + obj.data2,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num1 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data5 + " X" + obj.data7,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num2 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data8 + " X" + obj.data10,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num3 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + (num1+ num2+num3) + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + (num1+num2+num3) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
 
   //มีเมนู 1, 2, 3 และมี 5
   else if( obj.data12 === "" ) {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
-    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
-    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
-    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data0 + " X" + obj.data2,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num1 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data5 + " X" + obj.data7,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num2 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data8 + " X" + obj.data10,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num3 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data16 + " X" + obj.data18,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num5 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + (num1+ num2+num3+num5) + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + (num1+num2+num3+num5) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
 
   //มีเมนู 1, 2, 3,4 และไม่มี 5
   else if( obj.data16 === "") {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
-    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
-    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
-    "- " + obj.data12 + " X" + obj.data14 + " รวม " + (obj.data13*obj.data14) + " บาท\n" +          //เมนู 4
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data0 + " X" + obj.data2,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num1 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data5 + " X" + obj.data7,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num2 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data8 + " X" + obj.data10,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num3 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data12 + " X" + obj.data14,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num4 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + (num1+ num2+num3+num4) + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + (num1+num2+num3+num4) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
 
   //มีเมนู 1, 2, 3, 4 และมี 5
   else {
-    sendLineNotify("\n\nK. " + obj.data4 + "\nสถานที่จัดส่ง : " + obj.data3 + "\nวันที่รับอาหาร : " + obj.data11 + "\nโน๊ต : " + obj.data15 + "\n\nรายการอาหาร\n" + 
-    "- " + obj.data0 + " X" + obj.data2 + " รวม " + (obj.data1*obj.data2) + " บาท\n" +              //เมนู 1
-    "- " + obj.data5 + " X" + obj.data7 + " รวม " + (obj.data7*obj.data6) + " บาท\n" +              //เมนู 2
-    "- " + obj.data8 + " X" + obj.data10 + " รวม " + (obj.data9*obj.data10) + " บาท\n" +            //เมนู 3
-    "- " + obj.data12 + " X" + obj.data14 + " รวม " + (obj.data13*obj.data14) + " บาท\n" +          //เมนู 4
-    "- " + obj.data16 + " X" + obj.data18 + " รวม " + (obj.data17*obj.data18) + " บาท\n" +          //เมนู 5 ( Mannual )
+    var flexMessage = {
+    "type": "flex",
+    "altText": "Order Details",
+    "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Order Details",
+            "weight": "bold",
+            "size": "xl"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "K. " + obj.data4,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "สถานที่จัดส่ง: " + obj.data3,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "วันที่รับอาหาร: " + obj.data11,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": "โน๊ต: " + obj.data15,
+            "size": "md",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รายการอาหาร",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data0 + " X" + obj.data2,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num1 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data5 + " X" + obj.data7,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num2 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data8 + " X" + obj.data10,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num3 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data12 + " X" + obj.data14,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num4 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "- " + obj.data16 + " X" + obj.data18,
+                    "size": "md",
+                    "flex": 0,
+                    "wrap": true
+                  },
+                  {
+                    "type": "text",
+                    "text": "รวม " + num5 + " บาท",
+                    "size": "md",
+                    "align": "end"
+                  }
+                ],
+                "margin": "md"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "รวม " + (num1+ num2+num3+num4+num5) + " บาท",
+            "weight": "bold",
+            "size": "md",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": "Silp: " + shortUrl,
+            "size": "md",
+            "wrap": true,
+            "margin": "md"
+          }
+        ]
+      }
+    }
+  };
 
-    "\nรวม " + ( num1 + num2 + num3 + num4 + num5 ) + " บาท\n\nSilp : " + shortUrl
-    )
+  sendLineOAFlexMessage(flexMessage);
   }
 }
 
 
 
-function sendLineNotify(message) {
-  var token = "9jiqjAZZMm8ZpZkejWTJ4Ptjmbd0hNppkfs733qLqFU"; // Replace with your LINE Notify token
+
+function sendLineOAFlexMessage(flexMessage) {
+  var channelAccessToken = "Replace with your LINE OA Channel Access Token";   // Replace with your LINE OA Channel Access Token
+  var url = "https://api.line.me/v2/bot/message/push";
+  var userId = "Replace with the user ID or group ID to send the message to";   // Replace with the user ID or group ID to send the message to
+
+  var payload = JSON.stringify({
+    "to": userId,
+    "messages": [flexMessage]
+  });
+
   var options = {
-      "method": "post",
-      "payload": {
-          "message": message
-      },
-      "headers": {
-        "Authorization": "Bearer " + token
-      }
-    };
-    var response = UrlFetchApp.fetch("https://notify-api.line.me/api/notify", options);
-    Logger.log(response.getContentText());
-}
+    "method": "post",
+    "contentType": "application/json",
+    "payload": payload,
+    "headers": {
+      "Authorization": "Bearer " + channelAccessToken
+    }
+  };
+
+  UrlFetchApp.fetch(url, options);
+  }
+
+
+// function sendLineNotify(message) {
+//   var token = "Replace with your LINE Notify token";     // Replace with your LINE Notify token
+//   var options = {
+//       "method": "post",
+//       "payload": {
+//           "message": message
+//       },
+//       "headers": {
+//         "Authorization": "Bearer " + token
+//       }
+//     };
+//     var response = UrlFetchApp.fetch("https://notify-api.line.me/api/notify", options);
+//     Logger.log(response.getContentText());
+// }
 
 
 // get Bitly short link
