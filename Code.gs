@@ -8,7 +8,7 @@ function doGet(e) {
 
 //let file = '';
 function saveData(obj) {
-  var folder = DriveApp.getFolderById("getFolderById");
+  var folder = DriveApp.getFolderById("Token or Key");
   var file = ''
   if (obj.imagedata) {
     var datafile = Utilities.base64Decode(obj.imagedata)
@@ -65,15 +65,16 @@ function test (obj) {
 
 
   //Create Link shortUrl
-  var shortUrl = "n/a";
-  if (obj.imagedata) {
-    var folder = DriveApp.getFolderById("getFolderById");
-    var bitlyToken = "{{bitlyToken}}";
-    var datafile = Utilities.base64Decode(obj.imagedata)
-    var blob = Utilities.newBlob(datafile, obj.filetype, obj.filename);
-    var url_slip_for_line = folder.createFile(blob).getUrl()
-    shortUrl = createShortUrl(url_slip_for_line, bitlyToken);
-  }
+  // var shortUrl = "n/a";
+  // if (obj.imagedata) {
+  //   var folder = DriveApp.getFolderById("Token or Key");
+  //   var bitlyToken = "Token or Key";
+  //   var datafile = Utilities.base64Decode(obj.imagedata)
+  //   var blob = Utilities.newBlob(datafile, obj.filetype, obj.filename);
+  //   var url_slip_for_line = folder.createFile(blob).getUrl()
+  //   shortUrl = createShortUrl(url_slip_for_line, bitlyToken);
+  // }
+
 
   //Check note Empty ?
   if (obj.data15 === "") {
@@ -94,9 +95,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -161,7 +170,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + num5 + " บาท",
+            "text": "ยอดชําระสุทธิ " + num5 + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -187,9 +196,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -254,7 +271,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + num1 + " บาท",
+            "text": "ยอดชําระสุทธิ " + num1 + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -280,9 +297,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -373,7 +398,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + ( num1 + num5 ) + " บาท",
+            "text": "ยอดชําระสุทธิ " + ( num1 + num5 ) + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -399,9 +424,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -492,7 +525,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + ( num1 + num2 ) + " บาท",
+            "text": "ยอดชําระสุทธิ " + ( num1 + num2 ) + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -518,9 +551,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -631,7 +672,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + ( num1 + num2 + num5 ) + " บาท",
+            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num5 ) + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -657,9 +698,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -770,7 +819,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + ( num1 + num2 + num3 ) + " บาท",
+            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 ) + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -796,9 +845,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -929,7 +986,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + ( num1 + num2 + num3 + num5 ) + " บาท",
+            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 + num5 ) + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -955,9 +1012,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -1088,7 +1153,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + ( num1 + num2 + num3 + num4 ) + " บาท",
+            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 + num4 ) + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -1114,9 +1179,17 @@ function test (obj) {
         "contents": [
           {
             "type": "text",
-            "text": "Ref OrderID : " + generateRandomString(),
+            "text": "Aret Aroi Store",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "Ref OrderID : TH" + generateRandomString(),
+            "weight": "bold",
+            "size": "md",
+            "align": "center"
           }
         ]
       },
@@ -1267,7 +1340,7 @@ function test (obj) {
           },
           {
             "type": "text",
-            "text": "รวม " + ( num1 + num2 + num3 + num4 + num5 ) + " บาท",
+            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 + num4 + num5 ) + " บาท",
             "weight": "bold",
             "size": "17px",
             "margin": "xxl"
@@ -1285,9 +1358,9 @@ function test (obj) {
 
 
 function sendLineOAFlexMessage(flexMessage) {
-  var channelAccessToken = "Replace with your LINE OA Channel Access Token"; // Replace with your LINE OA Channel Access Token
+  var channelAccessToken = "Token or Key";                 // Replace with your LINE OA Channel Access Token
   var url = "https://api.line.me/v2/bot/message/push";
-  var userId = "Replace with the user ID or group ID to send the message to"; // Replace with the user ID or group ID to send the message to
+  var userId = "Token or Key";                             // Replace with the user ID or group ID to send the message to
 
   var payload = JSON.stringify({
     "to": userId,
@@ -1308,9 +1381,10 @@ function sendLineOAFlexMessage(flexMessage) {
 
 
 function generateRandomString() {
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  // var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   var result = '';
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 8; i++) {
     var randomIndex = Math.floor(Math.random() * characters.length);
     result += characters[randomIndex];
   }
@@ -1319,7 +1393,7 @@ function generateRandomString() {
 
 
 // function sendLineNotify(message) {
-//   var token = "Replace with your LINE Notify token"; // Replace with your LINE Notify token
+//   var token = "Token or Key";                         // Replace with your LINE Notify token
 //   var options = {
 //       "method": "post",
 //       "payload": {
