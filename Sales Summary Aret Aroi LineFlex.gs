@@ -119,7 +119,7 @@ function saleSummaryAretAroi() {
             "type": "text",
             "text": "ยอดรวมทั้งหมด " + totalSales + " บาท",
             "weight": "bold",
-            "size": "md",
+            "size": "17px",
             "align": "center"
           }
         ]
@@ -132,9 +132,9 @@ function saleSummaryAretAroi() {
 }
 
 function sendLineOAFlexMessage(flexMessage) {
-  var channelAccessToken = "Replace with your LINE OA Channel Access Token"; // Replace with your LINE OA Channel Access Token
+  var channelAccessToken = "Token Or Key";                       // Replace with your LINE OA Channel Access Token
   var url = "https://api.line.me/v2/bot/message/push";
-  var userId = "Replace with the user ID or group ID to send the message to"; // Replace with the user ID or group ID to send the message to
+  var userId = "Token Or Key";                                   // Replace with the user ID or group ID to send the message to
 
   var payload = JSON.stringify({
     "to": userId,
