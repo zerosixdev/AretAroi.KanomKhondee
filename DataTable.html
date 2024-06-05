@@ -102,22 +102,35 @@
       //{ title: "โน๊ต" },
       
       {
-        title: "โน๊ตเพิ่มเติม",
+        title: "โน๊ตจากลูกค้า",
         render: function (data, type, row, meta) {   
           if (data !== "") {
-            data = data;
+            data = " : " + data;
 
           }
           else {
-            data = "-";
+            data = " : -";
+          }
+          return data;
+          },
+        },
+      {
+        title: "Ref OrderId",
+        render: function (data, type, row, meta) {   
+          if (data !== "") {
+            data = " : " + data;
+
+          }
+          else {
+            data = " : N/A";
+            //Note : No Ref OrderId ,Because Feature Deploy date. 4Jun2024
           }
           return data;
           },
         },
       
-      
       {
-        title: "สลิปโอนเงิน",
+        title: "สลิปโอนเงิน ",
         render: function (data, type, row, meta) {   
           if (type === "display" && data != "") {
             data = '<a target="_blank" href="' + data + '" class="p-2 mb-2 bd-green-500 text-white"><i class=""></i> ตรวจสอบสลิป</a>';
@@ -130,6 +143,8 @@
           return data;
           },
         },
+        
+        
       ],
 
       "ordering": true,
