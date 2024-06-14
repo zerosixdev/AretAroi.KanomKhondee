@@ -99,8 +99,18 @@
       { "title": '<span class="blue-text">______</span><span class="white-text">ข้อมูลลูกค้า</span><span class="blue-text">______</span>' },
       { "title": '<span class="blue-text">________________</span><span class="white-text">รายการอาหารเอร็ด อร่อย.ย ( Aret Aroi )</span><span class="blue-text">________________</span>' },
       { title: "ยอดรวม" },
-      //{ title: "โน๊ต" },
-      
+      { title: "ส่วนลด ( Discount )",
+        render: function (data, type, row, meta) {   
+          if (data !== "") {
+            data = " : " + data;
+
+          }
+          else {
+            data = " : -";
+          }
+          return data;
+          },
+        },
       {
         title: "โน๊ตจากลูกค้า",
         render: function (data, type, row, meta) {   
