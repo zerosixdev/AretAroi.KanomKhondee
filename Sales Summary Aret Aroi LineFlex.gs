@@ -62,79 +62,86 @@ function saleSummaryAretAroi() {
     }
   });
 
-  // Create Flex Message
-  var flexMessage = {
-    "type": "flex",
-    "altText": "Sales Summary",
-    "contents": {
-      "type": "bubble",
-      "header": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "Sales Summary Aret Aroi",
-            "weight": "bold",
-            "size": "xl"
-          },
-          {
-            "type": "text",
-            "text": todayString,
-            "size": "sm",
-            "color": "#AAAAAA"
-          }
-        ]
-      },
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": sortedTypes.map(function(item) {
-          return {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": item[0],
-                "size": "md",
-                "flex": 5
-              },
-              {
-                "type": "text",
-                "text": "X" + item[1],
-                "size": "md",
-                "align": "end",
-                "flex": 1
-              }
-            ]
-          };
-        })
-      },
-      "footer": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "ยอดรวมทั้งหมด " + totalSales + " บาท",
-            "weight": "bold",
-            "size": "17px",
-            "align": "center"
-          }
-        ]
-      }
-    }
-  };
+  // ยอดขายวันที่ 2024-06-13
+  // ทั้งหมด 270 บาท
+  Logger.log("ยอดขายร้าน Aret Aroi ประจำวันที่ " + todayString + "\nทั้งหมด " + totalSales + " บาท");
 
-  // Send Flex Message to LINE OA
-  sendLineOAFlexMessage(flexMessage);
+  // Only send the message if totalSales is greater than 0
+  if (totalSales > 0) {
+    // Create Flex Message
+    var flexMessage = {
+      "type": "flex",
+      "altText": "Sales Summary",
+      "contents": {
+        "type": "bubble",
+        "header": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "Sales Summary Aret Aroi",
+              "weight": "bold",
+              "size": "xl"
+            },
+            {
+              "type": "text",
+              "text": todayString,
+              "size": "sm",
+              "color": "#AAAAAA"
+            }
+          ]
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": sortedTypes.map(function(item) {
+            return {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": item[0],
+                  "size": "md",
+                  "flex": 5
+                },
+                {
+                  "type": "text",
+                  "text": "X" + item[1],
+                  "size": "md",
+                  "align": "end",
+                  "flex": 1
+                }
+              ]
+            };
+          })
+        },
+        "footer": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "ยอดรวมทั้งหมด " + totalSales + " บาท",
+              "weight": "bold",
+              "size": "17px",
+              "align": "center"
+            }
+          ]
+        }
+      }
+    };
+
+    // Send Flex Message to LINE OA
+    sendLineOAFlexMessage(flexMessage);
+  }
 }
 
 function sendLineOAFlexMessage(flexMessage) {
-  var channelAccessToken = "Token Or Key";                       // Replace with your LINE OA Channel Access Token
+  var channelAccessToken = "Token or Key";   // Replace with your LINE OA Channel Access Token
   var url = "https://api.line.me/v2/bot/message/push";
-  var userId = "Token Or Key";                                   // Replace with the user ID or group ID to send the message to
+  var userId = "Token or Key";               // Replace with the user ID or group ID to send the message to
 
   var payload = JSON.stringify({
     "to": userId,
