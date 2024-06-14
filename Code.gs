@@ -1,5 +1,5 @@
 var ref_orderid = "";
-
+var discount = 0;
 function doGet(e) {
   return HtmlService.createTemplateFromFile('Index').evaluate()
       .setFaviconUrl("https://i.postimg.cc/xjZLsnky/healthy-food.png")
@@ -10,6 +10,12 @@ function doGet(e) {
 
 //let file = '';
 function saveData(obj) {
+  discount = obj.data19;
+  if(obj.data19 == "")
+  {
+    discount = 0;
+  }
+
   ref_orderid = "TH" + generateRandomString();
   var folder = DriveApp.getFolderById("Token or Key");
   var file = ''
@@ -28,7 +34,8 @@ var thaiDate = LanguageApp.translate(Utilities.formatDate(new Date(bdate[0],pars
     obj.data11,     //วันที่รับอาหาร
     "K. " + obj.data4 + " / " + obj.data3,    //ข้อมูลลูกค้า
     obj.data0 + "  " + obj.data2 + "\n" + obj.data5 + "  " + obj.data7 + "\n" + obj.data8 + "  " + obj.data10 + "\n" + obj.data12 + "  " + obj.data14+ "\n" + obj.data16 + "  " + obj.data18,    //รายการอาหาร
-    (obj.data1*obj.data2) +  (obj.data6*obj.data7) + (obj.data9*obj.data10) + (obj.data13*obj.data14) + (obj.data17*obj.data18),      //ยอดรวม
+    ((obj.data1*obj.data2) +  (obj.data6*obj.data7) + (obj.data9*obj.data10) + (obj.data13*obj.data14) + (obj.data17*obj.data18) - discount),      //ยอดรวม
+    discount,     //ส่วนลด
     obj.data15,     //โน๊ต
     ref_orderid,
     file    //ไฟล์แนบ
@@ -62,11 +69,12 @@ function getData() {
 //Line Notify Update. 20May2024
 
 function sendlineflex (obj) {
-  let num1 = parseInt((obj.data1*obj.data2));         //ราคาเมนูที่ 1
-  let num2 = parseInt((obj.data7*obj.data6));         //ราคาเมนูที่ 2   
-  let num3 = parseInt((obj.data9*obj.data10));        //ราคาเมนูที่ 3
-  let num4 = parseInt((obj.data13*obj.data14));       //ราคาเมนูที่ 4
-  let num5 = parseInt((obj.data17*obj.data18));       //ราคาเมนูที่ 5
+  discount = parseInt(discount);                       //ส่วนลด
+  let num1 = parseInt(obj.data1*obj.data2);         //ราคาเมนูที่ 1
+  let num2 = parseInt(obj.data7*obj.data6);         //ราคาเมนูที่ 2   
+  let num3 = parseInt(obj.data9*obj.data10);        //ราคาเมนูที่ 3
+  let num4 = parseInt(obj.data13*obj.data14);       //ราคาเมนูที่ 4
+  let num5 = parseInt(obj.data17*obj.data18);       //ราคาเมนูที่ 5
 
 
   //Create Link shortUrl
@@ -175,10 +183,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + num5 + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num5 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + ( num5 - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -276,10 +296,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + num1 + " บาท",
+            "text": "ยอดรวมทั้งหมด " + num1 + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + ( num1 - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -403,10 +435,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + ( num1 + num5 ) + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num1 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + (( num1 + num5 ) - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -530,10 +574,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + ( num1 + num2 ) + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num1 + num2 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + (( num1 + num2 ) - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -677,10 +733,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num5 ) + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num1 + num2 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + (( num1 + num2 + num5 ) - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -824,10 +892,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 ) + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num1 + num2 + num3 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + (( num1 + num2 + num3 ) - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -991,10 +1071,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 + num5 ) + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num1 + num2 + num3 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + (( num1 + num2 + num3 + num5 ) - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -1158,10 +1250,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 + num4 ) + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num1 + num2 + num3 + num4 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + (( num1 + num2 + num3 + num4 ) - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -1345,10 +1449,22 @@ function sendlineflex (obj) {
           },
           {
             "type": "text",
-            "text": "ยอดชําระสุทธิ " + ( num1 + num2 + num3 + num4 + num5 ) + " บาท",
+            "text": "ยอดรวมทั้งหมด " + ( num1 + num2 + num3 + num4 + num5 ) + " บาท",
             "weight": "bold",
-            "size": "17px",
+            "size": "16px",
             "margin": "xxl"
+          },
+          {
+            "type": "text",
+            "text": "ส่วนลด " + discount + " บาท",
+            "weight": "bold",
+            "size": "16px",
+          },
+          {
+            "type": "text",
+            "text": "ยอดชําระสุทธิ " + (( num1 + num2 + num3 + num4 + num5 ) - discount ) + " บาท",
+            "weight": "bold",
+            "size": "16px",
           }
         ]
       }
@@ -1363,9 +1479,9 @@ function sendlineflex (obj) {
 
 
 function sendLineOAFlexMessage(flexMessage) {
-  var channelAccessToken = "Token or Key";       // Replace with your LINE OA Channel Access Token
+  var channelAccessToken = "Token or Key";   // Replace with your LINE OA Channel Access Token
   var url = "https://api.line.me/v2/bot/message/push";
-  var userId = "Token or Key";                   // Replace with the user ID or group ID to send the message to
+  var userId = "Token or Key";               // Replace with the user ID or group ID to send the message to
 
   var payload = JSON.stringify({
     "to": userId,
