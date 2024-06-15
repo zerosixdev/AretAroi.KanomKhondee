@@ -10,10 +10,10 @@ function doGet(e) {
 
 //let file = '';
 function saveData(obj) {
-  discount = obj.data19;
+  discount = obj.data19;    //Discount ที่รับมาจากฟอร์ม
   if(obj.data19 == "")
   {
-    discount = 0;
+    discount = 0;           //ถ้า Discounts ไม่กรอกค่ามา Set Discounts = 0
   }
 
   ref_orderid = "TH" + generateRandomString();
@@ -23,7 +23,6 @@ function saveData(obj) {
     var datafile = Utilities.base64Decode(obj.imagedata)
     var blob = Utilities.newBlob(datafile, obj.filetype, obj.filename);
     file = folder.createFile(blob).getUrl()
-    //Logger.log(file)
   }
 var bdate = obj.data4.split("-")
 var thaiDate = LanguageApp.translate(Utilities.formatDate(new Date(bdate[0],parseInt(bdate[1])-1,parseInt(bdate[2])),'GMT+7','dd-MMMM-yyyy'),'en','th').split('-').map((a,i) =>{if(i != 2 || parseInt(a)>2100){return a}; a = parseInt(a)+543; return a}).join(' ')
@@ -34,10 +33,11 @@ var thaiDate = LanguageApp.translate(Utilities.formatDate(new Date(bdate[0],pars
     obj.data11,     //วันที่รับอาหาร
     "K. " + obj.data4 + " / " + obj.data3,    //ข้อมูลลูกค้า
     obj.data0 + "  " + obj.data2 + "\n" + obj.data5 + "  " + obj.data7 + "\n" + obj.data8 + "  " + obj.data10 + "\n" + obj.data12 + "  " + obj.data14+ "\n" + obj.data16 + "  " + obj.data18,    //รายการอาหาร
-    ((obj.data1*obj.data2) +  (obj.data6*obj.data7) + (obj.data9*obj.data10) + (obj.data13*obj.data14) + (obj.data17*obj.data18) - discount),      //ยอดรวม
+    (obj.data1*obj.data2) +  (obj.data6*obj.data7) + (obj.data9*obj.data10) + (obj.data13*obj.data14) + (obj.data17*obj.data18),      //ยอดรวม
     discount,     //ส่วนลด
+    ((obj.data1*obj.data2) +  (obj.data6*obj.data7) + (obj.data9*obj.data10) + (obj.data13*obj.data14) + (obj.data17*obj.data18) - discount),      //ยอดชำระสุทธิ
     obj.data15,     //โน๊ต
-    ref_orderid,
+    ref_orderid,    //RefOrder
     file    //ไฟล์แนบ
     
     
@@ -59,34 +59,17 @@ function getData() {
   var sheet = ss.getSheets()[0]
   var range = sheet.getDataRange()
   var values = range.getDisplayValues()
-  //Logger.log(values)
   return values
 }
 
 
-// - ข้าวคลุกกะปิพิเศษ X1 รวม 70
-// - เกี้ยวไข่ราคา X1รวม 30
-//Line Notify Update. 20May2024
-
 function sendlineflex (obj) {
-  discount = parseInt(discount);                       //ส่วนลด
+  discount = parseInt(discount);                    //ส่วนลด
   let num1 = parseInt(obj.data1*obj.data2);         //ราคาเมนูที่ 1
   let num2 = parseInt(obj.data7*obj.data6);         //ราคาเมนูที่ 2   
   let num3 = parseInt(obj.data9*obj.data10);        //ราคาเมนูที่ 3
   let num4 = parseInt(obj.data13*obj.data14);       //ราคาเมนูที่ 4
   let num5 = parseInt(obj.data17*obj.data18);       //ราคาเมนูที่ 5
-
-
-  //Create Link shortUrl
-  // var shortUrl = "n/a";
-  // if (obj.imagedata) {
-  //   var folder = DriveApp.getFolderById("Token or Key");
-  //   var bitlyToken = "Token or Key";
-  //   var datafile = Utilities.base64Decode(obj.imagedata)
-  //   var blob = Utilities.newBlob(datafile, obj.filetype, obj.filename);
-  //   var url_slip_for_line = folder.createFile(blob).getUrl()
-  //   shortUrl = createShortUrl(url_slip_for_line, bitlyToken);
-  // }
 
 
   //Check note Empty ?
@@ -1476,12 +1459,10 @@ function sendlineflex (obj) {
 }
 
 
-
-
 function sendLineOAFlexMessage(flexMessage) {
-  var channelAccessToken = "Token or Key";   // Replace with your LINE OA Channel Access Token
+  var channelAccessToken = "Token or Key";  // Replace with your LINE OA Channel Access Token
   var url = "https://api.line.me/v2/bot/message/push";
-  var userId = "Token or Key";               // Replace with the user ID or group ID to send the message to
+  var userId = "Token or Key"; // Replace with the user ID or group ID to send the message to
 
   var payload = JSON.stringify({
     "to": userId,
@@ -1502,7 +1483,6 @@ function sendLineOAFlexMessage(flexMessage) {
 
 
 function generateRandomString() {
-  // var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   var result = '';
   for (var i = 0; i < 8; i++) {
@@ -1510,49 +1490,4 @@ function generateRandomString() {
     result += characters[randomIndex];
   }
   return result;
-}
-
-
-// function sendLineNotify(message) {
-//   var token = "Token or Key"; // Replace with your LINE Notify token
-//   var options = {
-//       "method": "post",
-//       "payload": {
-//           "message": message
-//       },
-//       "headers": {
-//         "Authorization": "Bearer " + token
-//       }
-//     };
-//     var response = UrlFetchApp.fetch("https://notify-api.line.me/api/notify", options);
-//     Logger.log(response.getContentText());
-// }
-
-
-// get Bitly short link
-function createShortUrl(longUrl, bitlyToken) 
-{
-  const bitlyEndPoint = "https://api-ssl.bitly.com/v4/shorten";
-  
-  const options = 
-  {
-    "method": "POST",
-    "headers": {
-      "Authorization": "Bearer " + bitlyToken,
-      "Content-Type": "application/json"
-    },
-    "payload": JSON.stringify(
-      {
-      "long_url": longUrl
-      }),
-  };
-
-  try {
-    const shortUrl = JSON.parse(UrlFetchApp.fetch(bitlyEndPoint, options));
-    //Logger.log(shortUrl.link)
-    return shortUrl.link;
-  } catch (error) {
-    Logger.log(error.name + "：" + error.message);
-    return;
-  };
 }
