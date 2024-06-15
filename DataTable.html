@@ -112,6 +112,19 @@
           },
         },
       {
+        title: "ยอดชำระสุทธิ",
+        render: function (data, type, row, meta) {   
+          if (data !== "") {
+            data = " : " + data;
+
+          }
+          else {
+            data = " : -";
+          }
+          return data;
+          },
+        },
+      {
         title: "โน๊ตจากลูกค้า",
         render: function (data, type, row, meta) {   
           if (data !== "") {
