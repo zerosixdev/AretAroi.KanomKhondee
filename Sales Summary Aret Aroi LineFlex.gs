@@ -21,7 +21,7 @@ function saleSummaryAretAroi() {
       
       // Check if the date matches today's date
       if (dateString === todayString) {
-        var sales = parseFloat(data[i][4]); // Column E
+        var sales = parseFloat(data[i][6]); // Column G
         if (!isNaN(sales)) {
           totalSales += sales;
         }
@@ -62,8 +62,6 @@ function saleSummaryAretAroi() {
     }
   });
 
-  // ยอดขายวันที่ 2024-06-13
-  // ทั้งหมด 270 บาท
   Logger.log("ยอดขายร้าน Aret Aroi ประจำวันที่ " + todayString + "\nทั้งหมด " + totalSales + " บาท");
 
   // Only send the message if totalSales is greater than 0
@@ -139,9 +137,9 @@ function saleSummaryAretAroi() {
 }
 
 function sendLineOAFlexMessage(flexMessage) {
-  var channelAccessToken = "Token or Key";   // Replace with your LINE OA Channel Access Token
+  var channelAccessToken = "Token or Key"; // Replace with your LINE OA Channel Access Token
   var url = "https://api.line.me/v2/bot/message/push";
-  var userId = "Token or Key";               // Replace with the user ID or group ID to send the message to
+  var userId = "Token or Key"; // Replace with the user ID or group ID to send the message to
 
   var payload = JSON.stringify({
     "to": userId,
