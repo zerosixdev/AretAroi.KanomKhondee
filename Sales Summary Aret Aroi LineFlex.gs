@@ -23,9 +23,9 @@ function saleSummaryAretAroi() {
       
       // Check if the date matches today's date
       if (dateString === todayString) {
-        var sales1 = parseFloat(data[i][4]);    // Column E
-        var sales2 = parseFloat(data[i][5]);    // Column F
-        var sales3 = parseFloat(data[i][6]);    // Column G
+        var sales1 = parseFloat(data[i][4]);    // Column E Total Sales
+        var sales2 = parseFloat(data[i][5]);    // Column F Discounts
+        var sales3 = parseFloat(data[i][6]);    // Column G Net Total
         
         if (!isNaN(sales1)) {
           totalSales += sales1;
@@ -80,7 +80,7 @@ function saleSummaryAretAroi() {
     // Create Flex Message
     var flexMessage = {
       "type": "flex",
-      "altText": "Sales Summary",
+      "altText": "Sales Summary Aret Aroi",
       "contents": {
         "type": "bubble",
         "header": {
@@ -138,13 +138,13 @@ function saleSummaryAretAroi() {
             },
             {
               "type": "text",
-              "text": "  ส่วนลดทั้งหมด " + discounts + " บาท",
+              "text": "  ส่วนลด " + discounts + " บาท",
               "weight": "bold",
               "size": "16px",
             },
             {
               "type": "text",
-              "text": "  รวมรายได้สุทธิ " + netpayment + " บาท",
+              "text": "  ยอดรวมสุทธิ " + netpayment + " บาท",
               "weight": "bold",
               "size": "16px",
             }
