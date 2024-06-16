@@ -9,6 +9,8 @@ function saleSummaryAretAroi() {
   var todayString = Utilities.formatDate(today, Session.getScriptTimeZone(), "yyyy-MM-dd");
   
   var totalSales = 0;
+  var discounts = 0;
+  var netpayment = 0;
   var typeCounts = {};
 
   // Iterate over the data, starting from the second row (skip the header)
@@ -21,9 +23,18 @@ function saleSummaryAretAroi() {
       
       // Check if the date matches today's date
       if (dateString === todayString) {
-        var sales = parseFloat(data[i][6]); // Column G
-        if (!isNaN(sales)) {
-          totalSales += sales;
+        var sales1 = parseFloat(data[i][4]);    // Column E
+        var sales2 = parseFloat(data[i][5]);    // Column F
+        var sales3 = parseFloat(data[i][6]);    // Column G
+        
+        if (!isNaN(sales1)) {
+          totalSales += sales1;
+        }
+        if (!isNaN(sales2)) {
+          discounts += sales2;
+        }
+        if (!isNaN(sales3)) {
+          netpayment += sales3;
         }
 
         var types = data[i][3]; // Column D
@@ -62,7 +73,7 @@ function saleSummaryAretAroi() {
     }
   });
 
-  Logger.log("ยอดขายร้าน Aret Aroi ประจำวันที่ " + todayString + "\nทั้งหมด " + totalSales + " บาท");
+  Logger.log("ยอดขายร้าน Aret Aroi ประจำวันที่ " + todayString + "\nยอดขายทั้งหมด " + totalSales + " บาท"+ "\nส่วนลดทั้งหมด " + discounts + " บาท" + "\nรายได้รวมสุทธิ " + netpayment + " บาท");
 
   // Only send the message if totalSales is greater than 0
   if (totalSales > 0) {
@@ -121,10 +132,21 @@ function saleSummaryAretAroi() {
           "contents": [
             {
               "type": "text",
-              "text": "ยอดรวมทั้งหมด " + totalSales + " บาท",
+              "text": "  ยอดขายทั้งหมด " + totalSales + " บาท",
               "weight": "bold",
-              "size": "17px",
-              "align": "center"
+              "size": "16px"
+            },
+            {
+              "type": "text",
+              "text": "  ส่วนลดทั้งหมด " + discounts + " บาท",
+              "weight": "bold",
+              "size": "16px",
+            },
+            {
+              "type": "text",
+              "text": "  รวมรายได้สุทธิ " + netpayment + " บาท",
+              "weight": "bold",
+              "size": "16px",
             }
           ]
         }
