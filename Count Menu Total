@@ -1,0 +1,118 @@
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  // Create menu
+  ui.createMenu('Run Script Count Menu Mannual')
+      .addItem('Start', 'processDataAndInsertChart')
+      .addToUi();
+}
+
+function processDataAndInsertChart() {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sourceSheet = ss.getSheetByName('MASTER V.3');
+    var destSheet = ss.getSheetByName('Count Menu');
+  
+    if (!destSheet) {
+      destSheet = ss.insertSheet('OA');
+    } else {
+      destSheet.clear();  // Clear existing content
+    }
+  
+    var data = sourceSheet.getRange('D1:D').getValues();
+    var menuMap = {};
+  
+    data.forEach(function(row) {
+      var str = row[0];
+      if (str) {
+        var lines = str.split(/\r?\n|\r/); // Split by any line breaks
+        lines.forEach(function(line) {
+          var parts = line.split(/\s{2,}/); // Split by two or more spaces
+          if (parts.length >= 2) {
+            var menu = parts[0].trim();
+            var qty = parseInt(parts[1], 10);
+  
+            if (!isNaN(qty)) {
+              if (menuMap[menu]) {
+                menuMap[menu] += qty;
+              } else {
+                menuMap[menu] = qty;
+              }
+            }
+          }
+        });
+      }
+    });
+  
+    var output = [];
+    for (var menu in menuMap) {
+      output.push([menu, menuMap[menu]]);
+    }
+  
+    output.sort(function(a, b) {
+      return b[1] - a[1]; // Sort by the quantity in descending order
+    });
+  
+    // Write sorted results to the destination sheet
+    destSheet.getRange(1, 1, output.length + 1, 2).setValues([['เมนู', 'จำนวน']].concat(output));
+  
+    // Adjust column width and row height
+    destSheet.setColumnWidth(1, 200); // Set width of column A
+    destSheet.setColumnWidth(2, 100); // Set width of column B
+    destSheet.setRowHeight(1, 30); // Set height of row 1 (header row)
+    destSheet.autoResizeRows(2, output.length); // Auto resize rows based on content
+  
+    // Set font and size
+    destSheet.getRange(1, 1, output.length + 1, 2).setFontFamily('Sarabun').setFontSize(10);
+  
+    // Center align columns A and B horizontally and vertically
+    destSheet.getRange(1, 1, output.length + 1, 2).setHorizontalAlignment('center').setVerticalAlignment('middle');
+    
+    // Set height of each row to 30 pixels
+    for (var i = 2; i <= output.length + 1; i++) {
+      destSheet.setRowHeight(i, 30);
+    }
+    
+    // Set bold for header row (A1 and B1)
+    destSheet.getRange('A1:B1').setFontWeight('bold');
+  
+    // Insert a 3D column chart
+    var dataRange = destSheet.getRange('A2:B22'); // Use rows 3 to 22 (excluding header row)
+    var chart = destSheet.newChart()
+      .setChartType(Charts.ChartType.COLUMN) // Set chart type to column chart
+      .addRange(dataRange) // Add the data range for the chart
+      .setPosition(1, 3, 0, 0) // Position of the chart on the sheet (row 1, column 3)
+      // .setOption('title', 'ยอดขายเมนูอาหาร') // Title of the chart
+      // .setOption('hAxis.title', 'เมนู') // Horizontal axis title
+      // .setOption('vAxis.title', 'จำนวน') // Vertical axis title
+      .setOption('legend.position', 'none') // Remove legend if not needed
+      .setOption('is3D', true) // Make the chart 3D
+      .setOption('annotations', {
+        alwaysOutside: true, // Ensure data labels are outside
+        textStyle: {
+          fontSize: 10
+        }
+      })
+      .setOption('annotations', { 
+        alwaysOutside: true, // Data labels outside
+        textStyle: {
+          fontSize: 10,
+          bold: true
+        }
+      })
+      .build();
+  
+    // Clear any existing charts
+    var charts = destSheet.getCharts();
+    charts.forEach(function(existingChart) {
+      destSheet.removeChart(existingChart);
+    });
+  
+    // Insert the new chart
+    destSheet.insertChart(chart);
+  
+    // Resize the chart to be larger
+    var chartObjects = destSheet.getCharts();
+    chartObjects.forEach(function(existingChart) {
+      var chart = existingChart.modify().setOption('width', 1500).setOption('height', 675).build(); // Set the size of the chart
+      destSheet.updateChart(chart);
+    });
+  } 
